@@ -11,6 +11,11 @@ The docker container is available from docker hub at: zerginator/ltfs
 
 As the docker is terminal only I currently cannot install it directly from UnRaid Webinterface, as it immidately closes, so run it from the unraid console with an added execution of /bin/bash
 
+The SCSI device id must be handed over to the container
+Find Generic SCSCI decive for container: lsscsi -g
+In this example --> /dev/sg19
+Also the generic tape ids /dev/st0 & /dev/nst0 are handed over
+
 docker run -it --name='LTFS' --net='bridge' --privileged=true -e TZ="Europe/Berlin" -e HOST_OS="Unraid" -e HOST_HOSTNAME="NAS" -e HOST_CONTAINERNAME="LTFS" -e 'USER_LOCALES'='de_DE.UTF-8 UTF-8' -l net.unraid.docker.managed=dockerman -l net.unraid.docker.icon='https://www.storageheaven.com/v/vspfiles/assets/images/ltfs.png' -p '5544:5543/tcp' -v '/mnt/user/LTO/ToLTO/':'/backup':'rw' -v '/mnt/user/LTO/FromLTO/':'/restore':'rw' --device='/dev/st0' --device='/dev/fuse' --device='/dev/sg19' --device='/dev/nst0' --cap-add SYS_ADMIN 'zerginator/ltfs' /bin/bash
 
 Most important terminal commands for working with this container:
