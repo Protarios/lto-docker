@@ -1,4 +1,5 @@
 FROM debian:buster-slim
+MAINTAINER Zerginator
 
 # Much innformation about how to build this on Debian 10 comes from the open source docker build
 # https://github.com/LinearTapeFileSystem/Debian10-Build/blob/master/Dockerfile
