@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>LTFS</Name>
+  <Repository>zerginator/ltfs</Repository>
+  <Registry>https://hub.docker.com/r/zerginator/ltfs</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>bash</Shell>
+  <Privileged>true</Privileged>
+  <Support>http://forums.unraid.net</Support>
+  <Project/>
+  <Overview>Dockerfile for LTFS&#xD;
+&#xD;
+LTFS will run on port 5544.&#xD;
+&#xD;
+Start detached unraid container in Terminal with: docker run -it  /bin/bash&#xD;
+Reattach (in tmux) with: docker attach LTFS&#xD;
+&#xD;
+Find Generic SCSCI decive for container: lsscsi -g&#xD;
+&#xD;
+mt -f /dev/sgX status&#xD;
+mt -f /dev/sgX load, eject, erase, ...&#xD;
+ltfs -o device_list&#xD;
+mkltfs -d /dev/sgX&#xD;
+ltfs -o devname=/dev/sgX /ltfs&#xD;
+umount /ltfs&#xD;
+&#xD;
+Abfrage Cryptostatus:&#xD;
+stenc -f /dev/nst0 --detail&#xD;
+&#xD;
+Verschl&#xFC;sselungskey laden:&#xD;
+stenc -f /dev/nst0 -e on -k /media/vtape/myaes.key -a 1&#xD;
+&#xD;
+Verschl&#xFC;sselung deaktivieren:&#xD;
+stenc -f /dev/nst0 -e off -a 1&#xD;
+&#xD;
+AES Key generieren:&#xD;
+stenc -g 256 -k /media/vtape/myaes.key -kd "Backup Key"</Overview>
+  <Category>Backup:</Category>
+  <WebUI/>
+  <TemplateURL/>
+  <Icon>https://www.storageheaven.com/v/vspfiles/assets/images/ltfs.png</Icon>
+  <ExtraParams>--cap-add SYS_ADMIN</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled>1678364875</DateInstalled>
+  <DonateText/>
+  <DonateLink/>
+  <Requires/>
+  <Config Name="Host Port 1" Target="5543" Default="5543" Mode="tcp" Description="" Type="Port" Display="always" Required="true" Mask="false">5544</Config>
+  <Config Name="Backup" Target="/backup" Default="/mnt/user/" Mode="rw" Description="" Type="Path" Display="always" Required="false" Mask="false">/mnt/user/LTO/ToLTO/</Config>
+  <Config Name="Ultrium 5 Raw" Target="" Default="" Mode="" Description="" Type="Device" Display="always" Required="false" Mask="false">/dev/st0</Config>
+  <Config Name="Fuse Device" Target="" Default="" Mode="" Description="" Type="Device" Display="always" Required="false" Mask="false">/dev/fuse</Config>
+  <Config Name="Ultrium 5 Generic SCSI" Target="" Default="" Mode="" Description="Find device with: lsscsi -g" Type="Device" Display="always" Required="false" Mask="false">/dev/sg19</Config>
+  <Config Name="Restore" Target="/restore" Default="" Mode="rw" Description="" Type="Path" Display="always" Required="false" Mask="false">/mnt/user/LTO/FromLTO/</Config>
+  <Config Name="Ultrium 5 Raw no-rewind" Target="" Default="" Mode="" Description="" Type="Device" Display="always" Required="false" Mask="false">/dev/nst0</Config>
+  <Config Name="Locales - Language" Target="USER_LOCALES" Default="" Mode="" Description="Enter your prefered locales, you can find a full list of supported languages in: '/usr/share/i18n/SUPPORTED' simply open up a console from the Container and type in 'cat /usr/share/i18n/SUPPORTED' (eg: 'en_US.UTF-8 UTF8' or 'de_DE.UTF-8 UTF-8', 'fr_FR.UTF-8 UTF-8'...)" Type="Variable" Display="always" Required="true" Mask="false">de_DE.UTF-8 UTF-8</Config>
+</Container>
